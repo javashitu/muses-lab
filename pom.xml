@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.muses</groupId>
+    <artifactId>muses-lab</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>muses-lab</name>
+    <description>Demo project for Spring Boot</description>
+    <url/>
+    <modules>
+        <module>muses-warehouse</module>
+        <module>muses-recommend</module>
+    </modules>
+    <properties>
+        <java.version>17</java.version>
+        <scala.version>2.12.11</scala.version>
+        <spark.version>3.0.1</spark.version>
+        <hadoop.version>2.7.5</hadoop.version>
+        <spring.boot.version>3.3.4</spring.boot.version>
+        <spring-cloud.version>2023.0.3</spring-cloud.version>
+    </properties>
+    <repositories>
+        <repository>
+            <id>aliyun</id>
+            <url>https://maven.aliyun.com/nexus/content/groups/public/central</url>
+        </repository>
+        <repository>
+            <id>center</id>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>apache</id>
+            <url>https://repository.apache.org/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>cloudera</id>
+            <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
+        </repository>
+    </repositories>
+
+</project>
