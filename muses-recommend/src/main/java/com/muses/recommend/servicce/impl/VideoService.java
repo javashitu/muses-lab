@@ -3,13 +3,17 @@ package com.muses.recommend.servicce.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
+import com.muses.recommend.command.request.EmbeddingQueryRequest;
 import com.muses.recommend.command.request.LabelQueryRequest;
 import com.muses.recommend.persistence.ck.entity.VideoProgramStatistics;
 import com.muses.recommend.persistence.ck.repo.VideoProgramStatisticsRepo;
+import com.muses.recommend.persistence.milvus.entity.VideoEmbedding;
+import com.muses.recommend.persistence.milvus.repo.impl.VideoEmbeddingRepo;
 import com.muses.recommend.servicce.IVideoService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -19,6 +23,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,6 +47,8 @@ public class VideoService implements IVideoService {
     @Qualifier("entityManagerClickhouse")
     private EntityManager entityManager;
 
+    @Autowired
+    private VideoEmbeddingRepo videoEmbeddingRepo;
 
     @Transactional
     public String getVideoProgramStatistics(int pageNum) {
@@ -59,15 +66,18 @@ public class VideoService implements IVideoService {
         return resultStr;
     }
 
-    public List<String> queryVideoProgramByLab(LabelQueryRequest labelQueryRequest){
+    public List<String> queryVideoProgramByLab(LabelQueryRequest labelQueryRequest) {
         String querySql = labelQueryRequest.getLabelQueryInfo().formatSql();
         Query query = entityManager.createNativeQuery(querySql);
         List<Long> idLists = query.getResultList();
-        return idLists.stream().map(value->String.valueOf(value)).collect(Collectors.toList());
+        return idLists.stream().map(value -> String.valueOf(value)).collect(Collectors.toList());
     }
 
-    public static void main(String[] args) {
-        System.out.println(-1 /10);
+    public List<VideoEmbedding> queryVideoEmbeddingByLab(EmbeddingQueryRequest embeddingQueryRequest) {
+        if(CollectionUtils.isEmpty(embeddingQueryRequest.getVideoIdList())){
+            return videoEmbeddingRepo.queryByVideoId(Lists.newArrayList(764800, 764801));
+        }
+        return videoEmbeddingRepo.queryByVideoId((List) embeddingQueryRequest.getVideoIdList());
     }
 
 }

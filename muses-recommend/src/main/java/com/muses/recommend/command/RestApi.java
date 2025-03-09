@@ -1,8 +1,10 @@
 package com.muses.recommend.command;
 
+import com.muses.recommend.command.request.EmbeddingQueryRequest;
 import com.muses.recommend.command.request.LabelQueryRequest;
 import com.muses.recommend.command.response.ApiResult;
 import com.muses.recommend.command.response.LabelQueryResponse;
+import com.muses.recommend.persistence.milvus.entity.VideoEmbedding;
 import com.muses.recommend.servicce.IVideoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +40,11 @@ public class RestApi {
         List<String> result = videoService.queryVideoProgramByLab(request);
         LabelQueryResponse labelQueryResponse = new LabelQueryResponse(result);
         return ApiResult.success(labelQueryResponse);
+    }
+
+    @PostMapping("/video/embedding/query")
+    public ApiResult queryByLabel(@RequestBody EmbeddingQueryRequest request) {
+        List<VideoEmbedding> result = videoService.queryVideoEmbeddingByLab(request);
+        return ApiResult.success(result);
     }
 }

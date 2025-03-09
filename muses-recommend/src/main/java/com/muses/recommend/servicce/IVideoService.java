@@ -1,7 +1,9 @@
 package com.muses.recommend.servicce;
 
 
+import com.muses.recommend.command.request.EmbeddingQueryRequest;
 import com.muses.recommend.command.request.LabelQueryRequest;
+import com.muses.recommend.persistence.milvus.entity.VideoEmbedding;
 
 import java.util.List;
 
@@ -15,4 +17,6 @@ public interface IVideoService {
     String getVideoProgramStatistics(int pageNum);
 
     List<String> queryVideoProgramByLab(LabelQueryRequest labelQueryRequest);
+
+    List<VideoEmbedding> queryVideoEmbeddingByLab(EmbeddingQueryRequest labelQueryRequest);
 }
