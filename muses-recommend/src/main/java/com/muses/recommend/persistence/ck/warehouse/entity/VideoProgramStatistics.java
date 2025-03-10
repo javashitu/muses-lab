@@ -1,4 +1,4 @@
-package com.muses.recommend.persistence.ck.entity;
+package com.muses.recommend.persistence.ck.warehouse.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

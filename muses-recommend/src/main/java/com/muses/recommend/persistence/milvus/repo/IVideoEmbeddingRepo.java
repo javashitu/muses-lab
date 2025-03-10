@@ -14,4 +14,6 @@ public interface IVideoEmbeddingRepo {
     String COLLECTION_NAME = "video_embedding";
 
     List<VideoEmbedding> queryByVideoId(List<Object> videoIdList);
+
+    List<Long> annSearch(List<Float> vector, int topK);
 }

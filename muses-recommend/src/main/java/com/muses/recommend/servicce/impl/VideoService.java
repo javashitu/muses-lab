@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.muses.recommend.command.request.EmbeddingQueryRequest;
 import com.muses.recommend.command.request.LabelQueryRequest;
-import com.muses.recommend.persistence.ck.entity.VideoProgramStatistics;
-import com.muses.recommend.persistence.ck.repo.VideoProgramStatisticsRepo;
+import com.muses.recommend.persistence.ck.warehouse.entity.VideoProgramStatistics;
+import com.muses.recommend.persistence.ck.warehouse.repo.VideoProgramStatisticsRepo;
 import com.muses.recommend.persistence.milvus.entity.VideoEmbedding;
 import com.muses.recommend.persistence.milvus.repo.impl.VideoEmbeddingRepo;
 import com.muses.recommend.servicce.IVideoService;
@@ -23,7 +23,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,7 +43,7 @@ public class VideoService implements IVideoService {
     private ObjectMapper objectMapper;
 
     @Autowired
-    @Qualifier("entityManagerClickhouse")
+    @Qualifier("entityManagerClickhouse1")
     private EntityManager entityManager;
 
     @Autowired

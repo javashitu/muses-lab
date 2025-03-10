@@ -5,6 +5,7 @@ import com.muses.recommend.command.request.LabelQueryRequest;
 import com.muses.recommend.command.response.ApiResult;
 import com.muses.recommend.command.response.LabelQueryResponse;
 import com.muses.recommend.persistence.milvus.entity.VideoEmbedding;
+import com.muses.recommend.servicce.IRecallService;
 import com.muses.recommend.servicce.IVideoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class RestApi {
     @Autowired
     private IVideoService videoService;
 
+    @Autowired
+    private IRecallService recallService;
+
 
     @GetMapping(path = "/video/statistic/list/{pageNum}")
     public ApiResult listVideo(@PathVariable("pageNum") Integer pageNum) {
@@ -45,6 +49,7 @@ public class RestApi {
     @PostMapping("/video/embedding/query")
     public ApiResult queryByLabel(@RequestBody EmbeddingQueryRequest request) {
         List<VideoEmbedding> result = videoService.queryVideoEmbeddingByLab(request);
+        recallService.recallVideo(9528L);
         return ApiResult.success(result);
     }
 }

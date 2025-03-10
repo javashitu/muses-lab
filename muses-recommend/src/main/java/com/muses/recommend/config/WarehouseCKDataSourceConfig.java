@@ -29,30 +29,30 @@ import java.util.Map;
  */
 
 @Configuration
-@EntityScan(basePackages = "com.muses.manager.persistence.ck.entity")
+@EntityScan(basePackages = "com.muses.manager.persistence.ck.warehouse.entity")
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        entityManagerFactoryRef = "entityManagerFactoryClickhouse",
-        transactionManagerRef = "transactionManagerClickhouse",
-        basePackages = "com.muses.recommend.persistence.ck.repo"
+        entityManagerFactoryRef = "entityManagerFactoryClickhouse1",
+        transactionManagerRef = "transactionManagerClickhouse1",
+        basePackages = "com.muses.recommend.persistence.ck.warehouse.repo"
 )
-public class CKDataSourceConfig {
+public class WarehouseCKDataSourceConfig {
 
-    @Bean(name = "dataSourceClickhouse")
-    @ConfigurationProperties(prefix = "spring.datasource.clickhouse")
+    @Bean(name = "dataSourceClickhouse1")
+    @ConfigurationProperties(prefix = "spring.datasource.clickhouse1")
     public DataSource dataSourceClickhouse() {
         return DataSourceBuilder.create().build();
     }
 
-    @Bean(name = "jpaPropertiesClickhouse")
-    @ConfigurationProperties(prefix = "spring.jpa.clickhouse")
+    @Bean(name = "jpaPropertiesClickhouse1")
+    @ConfigurationProperties(prefix = "spring.jpa.clickhouse1")
     public JpaProperties jpaPropertiesClickhouse() {
         return new JpaProperties();
     }
 
-    @Bean(name = "entityManagerFactoryBeanClickhouse")
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBeanClickhouse(@Qualifier("dataSourceClickhouse") DataSource dataSourceClickhouse,
-                                                                                     @Qualifier("jpaPropertiesClickhouse") JpaProperties jpaProperties,
+    @Bean(name = "entityManagerFactoryBeanClickhouse1")
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBeanClickhouse(@Qualifier("dataSourceClickhouse1") DataSource dataSourceClickhouse,
+                                                                                     @Qualifier("jpaPropertiesClickhouse1") JpaProperties jpaProperties,
                                                                                      EntityManagerFactoryBuilder factoryBuilder) {
         Map<String, String> properties = jpaProperties.getProperties();
         properties.put("hibernate.physical_naming_strategy", CamelCaseToUnderscoresNamingStrategy.class.getName());
@@ -61,23 +61,23 @@ public class CKDataSourceConfig {
         return factoryBuilder
                 .dataSource(dataSourceClickhouse)
                 .properties(properties)
-                .packages("com.muses.recommend.persistence.ck.entity")
+                .packages("com.muses.recommend.persistence.ck.warehouse.entity")
                 .persistenceUnit("clickhousePersistenceUnit")
                 .build();
     }
 
-    @Bean(name = "entityManagerFactoryClickhouse")
-    public EntityManagerFactory entityManagerFactoryClickhouse(@Qualifier("entityManagerFactoryBeanClickhouse") LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean) {
+    @Bean(name = "entityManagerFactoryClickhouse1")
+    public EntityManagerFactory entityManagerFactoryClickhouse(@Qualifier("entityManagerFactoryBeanClickhouse1") LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean) {
         return localContainerEntityManagerFactoryBean.getObject();
     }
 
-    @Bean(name = "entityManagerClickhouse")
-    public EntityManager entityManagerClickhouse(@Qualifier("entityManagerFactoryClickhouse") EntityManagerFactory entityManagerFactory) {
+    @Bean(name = "entityManagerClickhouse1")
+    public EntityManager entityManagerClickhouse(@Qualifier("entityManagerFactoryClickhouse1") EntityManagerFactory entityManagerFactory) {
         return entityManagerFactory.createEntityManager();
     }
 
-    @Bean(name = "transactionManagerClickhouse")
-    public PlatformTransactionManager transactionManagerClickhouse(@Qualifier("entityManagerFactoryClickhouse") EntityManagerFactory entityManagerFactory) {
+    @Bean(name = "transactionManagerClickhouse1")
+    public PlatformTransactionManager transactionManagerClickhouse(@Qualifier("entityManagerFactoryClickhouse1") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
 

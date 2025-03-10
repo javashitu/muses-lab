@@ -1,7 +1,7 @@
-package com.muses.recommend.persistence.ck.repo;
+package com.muses.recommend.persistence.ck.warehouse.repo;
 
 
-import com.muses.recommend.persistence.ck.entity.VideoProgramStatistics;
+import com.muses.recommend.persistence.ck.warehouse.entity.VideoProgramStatistics;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
