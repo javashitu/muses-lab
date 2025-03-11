@@ -1,10 +1,9 @@
 package com.muses.recommend.servicce.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.muses.recommend.command.request.EmbeddingQueryRequest;
 import com.muses.recommend.command.request.LabelQueryRequest;
+import com.muses.recommend.common.util.JsonFormatter;
 import com.muses.recommend.persistence.ck.warehouse.entity.VideoProgramStatistics;
 import com.muses.recommend.persistence.ck.warehouse.repo.VideoProgramStatisticsRepo;
 import com.muses.recommend.persistence.milvus.entity.VideoEmbedding;
@@ -40,7 +39,7 @@ public class VideoService implements IVideoService {
     private VideoProgramStatisticsRepo videoProgramStatisticsRepo;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    private JsonFormatter jsonFormatter;
 
     @Autowired
     @Qualifier("entityManagerClickhouse1")
@@ -57,11 +56,7 @@ public class VideoService implements IVideoService {
         Page<VideoProgramStatistics> page = videoProgramStatisticsRepo.findAll(pageable);
         log.info("query count total element {} , list size {}", page.getTotalElements(), page.getContent().size());
         videoList.addAll(page.getContent());
-        try {
-            resultStr = objectMapper.writeValueAsString(videoList);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        resultStr = jsonFormatter.object2Json(videoList);
         return resultStr;
     }
 
@@ -73,7 +68,7 @@ public class VideoService implements IVideoService {
     }
 
     public List<VideoEmbedding> queryVideoEmbeddingByLab(EmbeddingQueryRequest embeddingQueryRequest) {
-        if(CollectionUtils.isEmpty(embeddingQueryRequest.getVideoIdList())){
+        if (CollectionUtils.isEmpty(embeddingQueryRequest.getVideoIdList())) {
             return videoEmbeddingRepo.queryByVideoId(Lists.newArrayList(764800, 764801));
         }
         return videoEmbeddingRepo.queryByVideoId((List) embeddingQueryRequest.getVideoIdList());

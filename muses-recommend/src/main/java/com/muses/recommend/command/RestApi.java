@@ -49,7 +49,6 @@ public class RestApi {
     @PostMapping("/video/embedding/query")
     public ApiResult queryByLabel(@RequestBody EmbeddingQueryRequest request) {
         List<VideoEmbedding> result = videoService.queryVideoEmbeddingByLab(request);
-        recallService.recallVideo(9528L);
         return ApiResult.success(result);
     }
 }

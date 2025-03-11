@@ -1,6 +1,6 @@
 package com.muses.recommend.command.response;
 
-import com.muses.recommend.enums.ServerErrorCodeEnums;
+import com.muses.recommend.common.enums.ServerErrorCodeEnums;
 import lombok.Builder;
 import lombok.Data;
 

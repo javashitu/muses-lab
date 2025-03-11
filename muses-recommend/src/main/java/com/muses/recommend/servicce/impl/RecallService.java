@@ -2,6 +2,8 @@ package com.muses.recommend.servicce.impl;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.muses.recommend.common.enums.ServerErrorCodeEnums;
+import com.muses.recommend.common.exception.ServerException;
 import com.muses.recommend.servicce.IItemRecallTask;
 import com.muses.recommend.servicce.IItemRecallTaskService;
 import com.muses.recommend.servicce.IRecallService;
@@ -56,12 +58,11 @@ public class RecallService implements IRecallService, InitializingBean, Applicat
                 taskFutureList.add(future);
             });
             Set<Long> recallVideoIdSet = waitTaskFinish(taskFutureList);
-
             log.info("the recall video id list is {} ", recallVideoIdSet);
             return recallVideoIdSet;
         } catch (Exception e) {
             log.error("recall video for user failure, userId {}", userId, e);
-            throw new RuntimeException(e);
+            throw ServerException.builder().serverErrorCodeEnums(ServerErrorCodeEnums.RECALL_VIDEO_FAILURE).build();
         }
     }
 

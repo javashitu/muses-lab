@@ -1,8 +1,7 @@
 package com.muses.recommend.persistence.milvus.repo.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
+import com.muses.recommend.common.util.JsonFormatter;
 import com.muses.recommend.persistence.milvus.entity.VideoEmbedding;
 import com.muses.recommend.persistence.milvus.repo.IVideoEmbeddingRepo;
 import io.milvus.v2.client.MilvusClientV2;
@@ -29,7 +28,7 @@ import java.util.List;
 @Component
 public class VideoEmbeddingRepo implements IVideoEmbeddingRepo {
     @Autowired
-    private ObjectMapper mapper;
+    private JsonFormatter jsonFormatter;
 
     @Autowired
     private MilvusClientV2 milvusClient;
@@ -50,11 +49,7 @@ public class VideoEmbeddingRepo implements IVideoEmbeddingRepo {
         List<QueryResp.QueryResult> results = getResp.getGetResults();
         List<VideoEmbedding> videoEmbeddingList = Lists.newArrayList();
         for (QueryResp.QueryResult result : results) {
-            try {
-                log.info(mapper.writeValueAsString(result.getEntity()));
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
+            log.info(jsonFormatter.object2Json(result.getEntity()));
             VideoEmbedding videoEmbedding = VideoEmbedding.deserialize(result);
             videoEmbeddingList.add(videoEmbedding);
         }

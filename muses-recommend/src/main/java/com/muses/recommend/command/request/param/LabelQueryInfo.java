@@ -1,7 +1,6 @@
 package com.muses.recommend.command.request.param;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +40,6 @@ public class LabelQueryInfo {
 
         labelQueryInfo.setOrQuery(Lists.newArrayList(labelQueryInfo2));
 
-        log.info(new ObjectMapper().writeValueAsString(labelQueryInfo));
         if (CollectionUtils.isEmpty(labelQueryInfo.getOrQuery())) {
             sqlStr = labelQueryInfo.formatAnd();
         } else if (CollectionUtils.isEmpty(labelQueryInfo.getAndQuery())) {
