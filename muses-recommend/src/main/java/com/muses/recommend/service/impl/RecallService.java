@@ -1,12 +1,12 @@
-package com.muses.recommend.servicce.impl;
+package com.muses.recommend.service.impl;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.muses.recommend.common.enums.ServerErrorCodeEnums;
 import com.muses.recommend.common.exception.ServerException;
-import com.muses.recommend.servicce.IItemRecallTask;
-import com.muses.recommend.servicce.IItemRecallTaskService;
-import com.muses.recommend.servicce.IRecallService;
+import com.muses.recommend.service.IItemRecallTask;
+import com.muses.recommend.service.IItemRecallTaskService;
+import com.muses.recommend.service.IRecallService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.jetbrains.annotations.NotNull;
@@ -48,7 +48,7 @@ public class RecallService implements IRecallService, InitializingBean, Applicat
 
     private ApplicationContext appContext;
 
-    public Set<Long> recallVideo(long userId) {
+    public List<Long> recallVideo(long userId) {
         log.info("recall video for user {}", userId);
         try {
             List<IItemRecallTask> taskList = genTask(userId);
@@ -59,7 +59,7 @@ public class RecallService implements IRecallService, InitializingBean, Applicat
             });
             Set<Long> recallVideoIdSet = waitTaskFinish(taskFutureList);
             log.info("the recall video id list is {} ", recallVideoIdSet);
-            return recallVideoIdSet;
+            return Lists.newArrayList(recallVideoIdSet);
         } catch (Exception e) {
             log.error("recall video for user failure, userId {}", userId, e);
             throw ServerException.builder().serverErrorCodeEnums(ServerErrorCodeEnums.RECALL_VIDEO_FAILURE).build();

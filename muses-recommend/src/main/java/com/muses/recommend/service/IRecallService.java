@@ -1,6 +1,7 @@
-package com.muses.recommend.servicce;
+package com.muses.recommend.service;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @ClassName IRecallService
@@ -9,5 +10,5 @@ import java.util.Collection;
  * @CreateDate: 2025/3/9 14:04
  */
 public interface IRecallService {
-    Collection<Long> recallVideo(long userId);
+    List<Long> recallVideo(long userId);
 }

@@ -1,4 +1,4 @@
-package com.muses.recommend.servicce.impl;
+package com.muses.recommend.service.impl;
 
 import com.google.common.collect.Lists;
 import com.muses.recommend.command.request.EmbeddingQueryRequest;
@@ -8,7 +8,7 @@ import com.muses.recommend.persistence.ck.warehouse.entity.VideoProgramStatistic
 import com.muses.recommend.persistence.ck.warehouse.repo.VideoProgramStatisticsRepo;
 import com.muses.recommend.persistence.milvus.entity.VideoEmbedding;
 import com.muses.recommend.persistence.milvus.repo.impl.VideoEmbeddingRepo;
-import com.muses.recommend.servicce.IVideoService;
+import com.muses.recommend.service.IVideoService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.extern.slf4j.Slf4j;

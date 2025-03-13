@@ -1,2 +1,3 @@
-spring.profiles.active: dev
-spring.profiles.include: database, consul, milvus
+spring.profiles:
+  active: dev
+  include: database, consul, milvus

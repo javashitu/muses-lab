@@ -1,10 +1,10 @@
-package com.muses.recommend.servicce.impl;
+package com.muses.recommend.service.impl;
 
 import com.google.common.collect.Lists;
 import com.muses.recommend.persistence.milvus.entity.VideoEmbedding;
 import com.muses.recommend.persistence.milvus.repo.IVideoEmbeddingRepo;
-import com.muses.recommend.servicce.IItemRecallTask;
-import com.muses.recommend.servicce.IItemRecallTaskService;
+import com.muses.recommend.service.IItemRecallTask;
+import com.muses.recommend.service.IItemRecallTaskService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;

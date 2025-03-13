@@ -1,4 +1,4 @@
-package com.muses.recommend.servicce;
+package com.muses.recommend.service;
 
 
 import com.muses.recommend.command.request.EmbeddingQueryRequest;

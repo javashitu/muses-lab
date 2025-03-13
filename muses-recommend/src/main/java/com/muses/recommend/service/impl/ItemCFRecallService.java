@@ -1,8 +1,8 @@
-package com.muses.recommend.servicce.impl;
+package com.muses.recommend.service.impl;
 
 import com.muses.recommend.persistence.ck.lab.repo.IVideoItemCFRepo;
-import com.muses.recommend.servicce.IItemRecallTask;
-import com.muses.recommend.servicce.IItemRecallTaskService;
+import com.muses.recommend.service.IItemRecallTask;
+import com.muses.recommend.service.IItemRecallTaskService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
